@@ -2,5 +2,5 @@
 
 This repo contains a series of Python scripts designed to process data after a successful LAMMPS run. Some of the scripts works best on Jupyter Notebook due to some functions. 
 
-  1. thermal_conductivity_calculations.ipynb
+  1. <h1>thermal_conductivity_calculations.ipynb</h1>
 This Python script was created in Jupyter Notebook. It reads only log.lammps files that are in the same directory as this the script and creates a .csv file where the columns of Step, Temp, and c_myFlux[1] are located. It will then parse only the c_myFlux[1] column for thermal conductivity calculations.
