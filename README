@@ -1,0 +1,4 @@
+# Uses Python in Jupyter Notebook or any IDE that supports Python
+
+This repo contains a series of Python scripts designed to process data after a successful LAMMPS run.
+Some of the scripts works best on Jupyter Notebook due to some functions. 
