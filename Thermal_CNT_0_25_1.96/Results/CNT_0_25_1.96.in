@@ -1,0 +1,90 @@
+#uniaxial tensile test of CNT_0_25_1.96
+
+log /ascldap/users/bcma/1stCNTRun/CNT_0_25_1.96/CNT_0_25_1.96.log.lammps
+
+
+##---------------INITIALIZATION-------------------------------
+
+units          metal
+dimension 	    3 
+boundary       p p p
+atom_style 	atomic
+newton 		on
+
+
+##---------------ATOM DEFINITION------------------------------
+
+read_data 	CNT_0_25_1.96.dat
+
+
+##---------------FORCE FIELDS---------------------------------
+#Set the formula(s) LAMMPS uses to compute pairwise interactions. In LAMMPS, pair potentials are defined between pairs #of atoms that are within a cutoff distance and the set of active interactions typically changes over time
+
+pair_style 	airebo 3.0
+
+#Specify the pairwise force field coefficients for one or more pairs of atom types. The number and meaning of the coefficients depends on the pair style.
+
+pair_coeff     * * /ascldap/users/bcma/CH.airebo C
+
+
+##---------------SETTINGS-------------------------------------
+
+timestep 	0.0005
+variable   ts equal 0.0005
+
+
+##---------------COMPUTES-----stresses in 3 directions and min/max on x and z atom coordinates --------------------------
+
+compute    1 all stress/atom NULL
+compute    2 all reduce sum c_1[1] c_1[2] c_1[3]
+compute    3 all property/atom x y # true atoms position
+compute    4 all reduce min c_3[1] c_3[2]
+compute    5 all reduce max c_3[1] c_3[2]
+
+
+variable   Lx equal lx
+variable   Ly equal ly
+variable   Lz equal lz
+variable   Vol equal vol
+variable   thickn equal 3.4
+#making the damp parameter timestep dependent
+fix		1 all npt temp 300 300 0.05 iso 0 0 0.05 #$(100.0*dt)x 0 0 0.5 y 0 0 0.5 z 0 0 0.5
+thermo 	2000
+##---------------RELAXATION--------------------------------------
+
+run            50000
+
+
+##---------------DEFORMATION--------------------------------------
+unfix              1
+reset_timestep     0
+fix		1 all npt temp 300 300 0.05 x 0 0 0.05 y 0 0 0.05 #$(100.0*dt)
+fix        2 all ave/time 1 100 100 c_2[1] c_2[2] c_2[3]
+fix        3 all ave/time 1 100 100 v_Lx v_Ly v_Lz v_Vol
+fix        4 all  ave/time 1 100 100 c_4[1] c_4[2]
+fix        5 all ave/time 1 100 100 c_5[1] c_5[2]
+variable   srate equal 1.0e9
+variable   srate1 equal "v_srate / 1.0e12"
+fix		6 all deform 1 z erate ${srate1} units box remap x 
+run            100
+##---------------THERMO-OUTPUTS--------------------------------------
+variable cntdiameter equal ((f_5[1]-f_4[1])+(f_5[2]-f_4[2]))/2
+#actual volume of cnt
+variable   CorVol equal 3.14*v_cntdiameter*v_thickn*f_3[3]
+#convertion factor of stress from barr to GPA
+variable   ConvoFac equal 1/1.0e4
+variable   sigmaxx equal f_2[1]*v_ConvoFac/v_CorVol 
+variable   sigmayy equal f_2[2]*v_ConvoFac/v_CorVol
+variable   sigmazz equal f_2[3]*v_ConvoFac/v_CorVol
+variable   StrainPerTs equal v_srate1*v_ts
+variable   strain equal v_StrainPerTs*step
+thermo 	100
+thermo_style custom step temp v_strain v_sigmaxx v_sigmayy v_sigmazz pe ke lx ly lz vol v_cntdiameter v_CorVol
+thermo_modify lost warn 
+
+
+##---------------DEFORMATION--------------------------------------
+dump           1 all atom 5000 /ascldap/users/bcma/1stCNTRun/CNT_0_25_1.96/CNT_0_25_1.96.lammpstrj
+run            1000000
+
+
