@@ -1,3 +1,7 @@
+'''
+Collabrated with Drew Rohskopf
+'''
+
 import os, sys
 import shutil
 import numpy as np
@@ -77,16 +81,6 @@ for i, log_file in enumerate(all_the_log_files):
 
     print(ps_arr)
 
-    ## 1 row, 2 column of graphs for temperature for subplots
-#     fig, axes = plt.subplots(1, 2, figsize = [15,4])
-
-#     axes[0].plot(ps_arr, col_flux,label="temperature",c="r")
-#     axes[0].set_title('Heat Flux vs Time')
-#     axes[0].set_xlabel('MD Time (ps)')
-#     axes[0].set_ylabel('Heat Flux')
-#     axes[0].yaxis.get_ticklocs(minor=True)
-#     axes[0].minorticks_on()
-
     plt.title("Heat Flux vs Time")
     plt.plot(ps_arr, col_flux, color="red")
     plt.xlabel('Time (ps)')
@@ -96,6 +90,20 @@ for i, log_file in enumerate(all_the_log_files):
     png_name = f'{file_stem}_HeatFlux.png'
     plt.tight_layout()
     plt.savefig(png_name, transparent=True) ## Set to True for transparent images
+
+    ## Use numpy.correlate function
+    flux_cor = np.correlate(ps_arr, col_flux, mode='same')
+    print(flux_cor)
+
+    plt.title("Heat Flux Correlation vs Time")
+    plt.plot(ps_arr, flux_cor, color="blue")
+    plt.xlabel('Time (ps)')
+    plt.ylabel('Heat flux correlation')
+
+    ## Create a PNG of the graphs and save it
+    png2_name = f'{file_stem}_Correlation.png'
+    plt.tight_layout()
+    plt.savefig(png2_name, transparent=True)
 
     ## Show and close the graphs. Required for normal scripts
     plt.show()
