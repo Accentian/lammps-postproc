@@ -1,0 +1,16 @@
+CNT_1_19_1.53 Measurements
+ 
+CNT Diameter in x direction: 
+
+1.52763 nm 
+15.2763 angstrom
+ 
+CNT Diameter in y direction: 
+
+1.527618 nm 
+15.27618 angstrom
+ 
+CNT Length: 
+
+16.6614 nm 
+166.614 angstrom
