@@ -8,6 +8,7 @@ import shutil
 import numpy as np
 import matplotlib.pyplot as plt
 
+## Calculates the correlation
 def estimated_autocorrelation(x):
     n = len(x)
     variance = x.var()
@@ -100,9 +101,7 @@ for i, log_file in enumerate(all_the_log_files):
     plt.tight_layout()
     plt.savefig(png_name, transparent=True) ## Set to True for transparent images
 
-    ## Use numpy.correlate function
-    # flux_cor = np.correlate(ps_arr, col_flux, mode='same')
-    # print(flux_cor)
+    ## Calls estimated_autocorrelation
     ndat = len(ps_arr)
     autocor = estimated_autocorrelation(col_flux)
     minimum = min(autocor[0:int(ndat/2)])
@@ -113,7 +112,7 @@ for i, log_file in enumerate(all_the_log_files):
     plt.ylabel('autocorrelation')
     plt.xlim([0.0,ps_arr[-1]/2])
     plt.ylim([minimum,maximum])
-    #P.show()
+    #plt.show()
     plt.savefig(f'{file_stem}_AutoCorrelation.png')
 
     ## Show and close the graphs. Required for normal scripts
