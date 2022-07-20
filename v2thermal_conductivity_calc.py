@@ -88,16 +88,17 @@ for i, log_file in enumerate(all_the_log_files):
         ps_arr.append(ps)
         #print(ps)
         snapshots = snapshots + 5
+    #print(ps_arr)
 
-    print(ps_arr)
-
+    plt.figure() # creates a figure
+    ## Plot heat flux vs time
     plt.title("Heat Flux vs Time")
     plt.plot(ps_arr, col_flux, color="red")
     plt.xlabel('Time (ps)')
     plt.ylabel('Heat flux (eV/A^2/ps)')
 
-    ## Create a PNG of the graphs and save it
-    png_name = f'{file_stem}_HeatFlux.png'
+    # Create a PNG of the graphs and save it
+    png_name = f'{file_stem}_Flux.png'
     plt.tight_layout()
     plt.savefig(png_name, transparent=True) ## Set to True for transparent images
 
@@ -107,6 +108,7 @@ for i, log_file in enumerate(all_the_log_files):
     minimum = min(autocor[0:int(ndat/2)])
     maximum = max(autocor[0:int(ndat/2)])
 
+    plt.figure() # creates a figure
     plt.plot(ps_arr,autocor)
     plt.xlabel('time (s)')
     plt.ylabel('autocorrelation')
