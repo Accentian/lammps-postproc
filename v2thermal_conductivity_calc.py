@@ -109,9 +109,10 @@ for i, log_file in enumerate(all_the_log_files):
     maximum = max(autocor[0:int(ndat/2)])
 
     plt.figure() # creates a figure
+    plt.title("Heat Flux Autocorrelation vs Correlation Time")
     plt.plot(ps_arr,autocor)
-    plt.xlabel('time (s)')
-    plt.ylabel('autocorrelation')
+    plt.xlabel('Correlation time (ps)')
+    plt.ylabel('Heat flux autocorrelation')
     plt.xlim([0.0,ps_arr[-1]/2])
     plt.ylim([minimum,maximum])
     #plt.show()
