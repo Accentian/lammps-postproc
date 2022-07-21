@@ -20,17 +20,11 @@ TO RUN THE SCRIPT(S) & RESULTS:
   - From `Thermal_CNT_0_25_1.96.log.lammps`, a .csv file (`Thermal_CNT_0_25_1.96.csv`) will be created
   - From `Thermal_CNT_0_25_1.96.log.lammps`, a PNG image (`Thermal_CNT_0_25_1.96_AutoCorrelation.png`) will be created
 
-
-# [By Drew] Here are the next steps for calculating thermal conductivity:
-1. Redo ~20 other simulations using the same LAMMPS input script, but with different random number seeds for the velocities. These are called “ensembles” in statistical physics.
-2. Calculate the heat flux autocorrelation for each of these 20 simulations.
-3. Average the autocorrelation for all simulations, for each time. This is <Q(t)Q(0)>
-4. Time-integrate <Q(t)Q(0)>, and plot it as a function of integration time. The value that this integral levels off at will be the thermal conductivity, after we multiply by some constants according to the Green-Kubo formula:
-
 # [By Drew] These are the next steps to use your code to calculate thermal:
+
 1. Do `N` simulations using the same input script, where N could be anywhere from 10-100 (more is better). These are called “ensembles” in statistical physics.
 2. Use your code to calculate thermal conductivity accumulation vs. integration time for all ensembles.
 3. Average TC accumulation for all ensembles.
 4. That average is thermal conductivity, after we multiply by some constants according to the Green-Kubo formula (see Green-Kubo formula.png)
 
-These steps are not implmented yet.
+These steps are not implmented yet, but are straightforward using this code to calculate autocorrelation and accumulation.
