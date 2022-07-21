@@ -73,7 +73,7 @@ for i, log_file in enumerate(all_the_log_files):
     copy_arr = arr.copy()
     col_flux = copy_arr[:,2]
 
-    ## Array for timestep converted to picosecond
+    ## List for timestep converted to picosecond
     ps_arr = []
     snapshots = 0
 
@@ -89,15 +89,17 @@ for i, log_file in enumerate(all_the_log_files):
         #print(ps)
         snapshots = snapshots + 5
     #print(ps_arr)
+    ## Convert list to array.
+    ps_arr = np.array(ps_arr)
 
-    #plt.figure() # creates a figure
     ## Plot heat flux vs time
+    plt.figure() # creates a figure
     plt.title("Heat Flux vs Time")
     plt.plot(ps_arr, col_flux, color="red", label='Heat Flux')
     plt.xlabel('Time (ps)')
     plt.ylabel('Heat flux (eV/A^2/ps)')
-
-    # Create a PNG of the graphs and save it
+    plt.savefig(f'{file_stem}_HeatFlux.png')
+    ##DEBUG: Create a PNG of the graphs and save it
     #png_name = f'{file_stem}_Flux.png'
     #plt.savefig(png_name, transparent=True) ## Set to True for transparent images
 
@@ -108,7 +110,13 @@ for i, log_file in enumerate(all_the_log_files):
     maximum = max(autocor[0:int(ndat/2)])
     #print(autocor[0])
 
-    #plt.figure() # creates a figure
+    ## Overlay heat flux for autocorrelation vs. correlation time
+    plt.figure() # creates a figure
+    plt.plot(ps_arr, col_flux, color="red", label='Heat Flux')
+    plt.xlabel('Time (ps)')
+    plt.ylabel('Heat flux (eV/A^2/ps)')
+    plt.savefig(f'{file_stem}_HeatFlux.png')
+
     plt.title("Heat Flux vs Time")
     plt.plot(ps_arr, autocor, label='Mean Flux')
     plt.xlabel('Time (ps)')
@@ -120,6 +128,26 @@ for i, log_file in enumerate(all_the_log_files):
     plt.legend()
     plt.savefig(f'{file_stem}_AutoCorrelation.png')
 
+    ## Time-integrate the autocorrelation and timestep
+    integral_array = []
+
+    time_indices = np.arange(1000,len(ps_arr),1000)
+    for t in time_indices:
+        integral = np.trapz(autocor[0:t], ps_arr[0:t])
+        integral_array.append(integral)
+    integral_array = np.array(integral_array) # integrated autocorrelations
+    integral_times = ps_arr[time_indices] # times to plot integrated autocorrelations against
+
+    ## Plot thermal conductivity accumulation vs. integration time
+    plt.figure() # creates a figure
+    plt.title("Thermal Conductivity Accumulation")
+    plt.plot(integral_times, integral_array)
+    plt.xlabel('Time (ps)')
+    plt.ylabel('Heat flux (eV/A^2/ps)')
+    plt.xlim([0.0,ps_arr[-1]/2])
+
+    plt.legend()
+    plt.savefig(f'{file_stem}_TCAccumulation.png')
     ## Show and close the graphs. Required for normal scripts
     plt.show()
     plt.close()
