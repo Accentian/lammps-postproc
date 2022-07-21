@@ -10,9 +10,10 @@ This Python script is identical to `thermal_conductivity_calculations.ipynb`. En
 
   3. v2thermal_conductivity_calc.py - 
 This Python script is work in-progress script that's similar to `thermal_conductivity_calc.py`. Ensure that the imports or Python environments for numpy and matplotlib.pyplot exists in order for the script to work. Like the first listing, the script reads only log.lammps files that are in the same directory as this the script and creates a .csv file where the columns of Step, Temp, and c_myFlux[1] are located. It will then parse only the `c_myFlux[1]` column for thermal conductivity calculations using user defined functions.
-    1. extract the heat flux vs. time [Q(t)] from LAMMPS output
-    2. plot heat flux vs. time, along with the mean flux, to show that the system is in equilibrium
-    3. calculate heat flux autocorrelation, which is a measure of how long the heat flux signal stays correlated with itself
+
+    - extract the heat flux vs. time [Q(t)] from LAMMPS output
+    - plot heat flux vs. time, along with the mean flux, to show that the system is in equilibrium
+    - calculate heat flux autocorrelation, which is a measure of how long the heat flux signal stays correlated with itself
 
 TO RUN THE SCRIPT(S) & RESULTS:
   - Make sure `Thermal_CNT_0_25_1.96.log.lammps` (or any log.lammps in this repo) is in the same folder as the Python script. Make any necessary changes in the script regarding file paths, etc., and then run the script.
