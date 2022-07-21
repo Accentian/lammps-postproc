@@ -1,9 +1,5 @@
 Collaborated with Drew Rohskopf. The `input` script calculates the heat flux.
 
-# v2thermal_conductivity_calc.py does the following:
-    1. plot heat flux vs. time, along with the mean flux, to show that the system is in equilibrium
-    2. calculate heat flux autocorrelation, which is a measure of how long the heat flux signal stays correlated with itself
-
 # Here are the generalized step for the entire thing:
 
     1. Modify the LAMMPS scripts (particularly the .bash and .in) and make sure the bash script works with whatever system/cluster it is in 
