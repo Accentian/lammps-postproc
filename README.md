@@ -14,7 +14,7 @@ This Python script is work in-progress script that's similar to `thermal_conduct
 TO RUN THE SCRIPT(S) & RESULTS:
   - Make sure `Thermal_CNT_0_25_1.96.log.lammps` (or any log.lammps in this repo) is in the same folder as the Python script. Make any necessary changes in the script regarding file paths, etc., and then run the script.
   - From `Thermal_CNT_0_25_1.96.log.lammps`, a .csv file (`Thermal_CNT_0_25_1.96.csv`) will be created
-  - From `Thermal_CNT_0_25_1.96.log.lammps`, a PNG image (`Thermal_CNT_0_25_1.96_HeatFlux.png`) will be created
+  - From `Thermal_CNT_0_25_1.96.log.lammps`, a PNG image (`Thermal_CNT_0_25_1.96_AutoCorrelation.png`) will be created
 
 
 # [By Drew] Here are the next steps for calculating thermal conductivity:
