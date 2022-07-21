@@ -31,7 +31,7 @@ for i, log_file in enumerate(all_the_log_files):
     with open(log_file, 'r') as f:
         txt = f.readlines()
 
-    col_check_str = '   Step          Temp       c_myFlux[1]  '
+    col_check_str = '   Step          Temp       c_myFlux[3]  '
     end_check_str = 'Loop time of '
     columns = None
     start_idx, end_idx = 0, len(txt)
@@ -90,32 +90,34 @@ for i, log_file in enumerate(all_the_log_files):
         snapshots = snapshots + 5
     #print(ps_arr)
 
-    plt.figure() # creates a figure
+    #plt.figure() # creates a figure
     ## Plot heat flux vs time
     plt.title("Heat Flux vs Time")
-    plt.plot(ps_arr, col_flux, color="red")
+    plt.plot(ps_arr, col_flux, color="red", label='Heat Flux')
     plt.xlabel('Time (ps)')
     plt.ylabel('Heat flux (eV/A^2/ps)')
 
     # Create a PNG of the graphs and save it
-    png_name = f'{file_stem}_Flux.png'
-    plt.tight_layout()
-    plt.savefig(png_name, transparent=True) ## Set to True for transparent images
+    #png_name = f'{file_stem}_Flux.png'
+    #plt.savefig(png_name, transparent=True) ## Set to True for transparent images
 
     ## Calls estimated_autocorrelation
     ndat = len(ps_arr)
     autocor = estimated_autocorrelation(col_flux)
     minimum = min(autocor[0:int(ndat/2)])
     maximum = max(autocor[0:int(ndat/2)])
+    #print(autocor[0])
 
-    plt.figure() # creates a figure
-    plt.title("Heat Flux Autocorrelation vs Correlation Time")
-    plt.plot(ps_arr,autocor)
-    plt.xlabel('Correlation time (ps)')
-    plt.ylabel('Heat flux autocorrelation')
+    #plt.figure() # creates a figure
+    plt.title("Heat Flux vs Time")
+    plt.plot(ps_arr, autocor, label='Mean Flux')
+    plt.xlabel('Time (ps)')
+    plt.ylabel('Heat flux (eV/A^2/ps)')
     plt.xlim([0.0,ps_arr[-1]/2])
-    plt.ylim([minimum,maximum])
+    #plt.ylim([minimum,maximum])
+    #plt.tight_layout()
     #plt.show()
+    plt.legend()
     plt.savefig(f'{file_stem}_AutoCorrelation.png')
 
     ## Show and close the graphs. Required for normal scripts
