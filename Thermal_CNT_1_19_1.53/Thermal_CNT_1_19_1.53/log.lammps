@@ -1,0 +1,7 @@
+LAMMPS (4 May 2022)
+  using 1 OpenMP thread(s) per MPI task
+### TBC-1 input script for LAMMPS version 7 Dec 2015
+
+#thermal properties of CNT_1_19_1.53
+
+log /ascldap/users/bcma/Thermal_CNT_1_19_1.53/Thermal_CNT_1_19_1.53.log.lammps
