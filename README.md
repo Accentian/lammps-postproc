@@ -21,6 +21,6 @@ TO RUN THE SCRIPT(S) & RESULTS:
 1. Redo ~20 other simulations using the same LAMMPS input script, but with different random number seeds for the velocities. These are called “ensembles” in statistical physics.
 2. Calculate the heat flux autocorrelation for each of these 20 simulations.
 3. Average the autocorrelation for all simulations, for each time. This is <Q(t)Q(0)>
-Time-integrate <Q(t)Q(0)>, and plot it as a function of integration time. The value that this integral levels off at will be the thermal conductivity, after we multiply by some constants according to the Green-Kubo formula:
+4. Time-integrate <Q(t)Q(0)>, and plot it as a function of integration time. The value that this integral levels off at will be the thermal conductivity, after we multiply by some constants according to the Green-Kubo formula:
 
 These steps are not implmented yet.
