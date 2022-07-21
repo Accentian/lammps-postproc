@@ -145,8 +145,6 @@ for i, log_file in enumerate(all_the_log_files):
     plt.xlabel('Time (ps)')
     plt.ylabel('Heat flux (eV/A^2/ps)')
     plt.xlim([0.0,ps_arr[-1]/2])
-
-    plt.legend()
     plt.savefig(f'{file_stem}_TCAccumulation.png')
     ## Show and close the graphs. Required for normal scripts
     plt.show()
