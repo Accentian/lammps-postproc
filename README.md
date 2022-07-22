@@ -20,7 +20,7 @@ TO RUN THE SCRIPT(S) & RESULTS:
   - From `Thermal_CNT_0_25_1.96.log.lammps`, a .csv file (`Thermal_CNT_0_25_1.96.csv`) will be created
   - From `Thermal_CNT_0_25_1.96.log.lammps`, several PNG image (`Thermal_CNT_0_25_1.96_AutoCorrelation.png, Thermal_CNT_0_25_1.96_HeatFlux.png, Thermal_CNT_1_19_1.53_TCAccumulation.png`) will be created
 
-# [By Drew] These are the next steps to use your code to calculate thermal:
+# [By Drew] These are the next steps to use your code to calculate thermal conductivity:
 
 1. Do `N` simulations using the same input script, where N could be anywhere from 10-100 (more is better). These are called “ensembles” in statistical physics.
 2. Use your code to calculate thermal conductivity accumulation vs. integration time for all ensembles.
